@@ -1,0 +1,5 @@
+在JDK 1.2 之后，java对引用的概念进行了扩充，分别为四种：
+    1,  强引用 (Strong Reference)
+    2,  软引用 (Soft Reference)
+    3,  弱引用 (Weak Reference)
+    4,  虚引用 (Phantom Reference)
