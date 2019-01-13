@@ -11,10 +11,13 @@ public class VectorDome {
         * 可以在一定程度上可以说是线程安全的
         * 写一个例子来学习Vector，测试Vector是否是线程安全的
         * */
-        LeanVector();
-    }
+//        简单学习Vector
+//        leanVector();
 
-    public static void LeanVector(){
+        vectorSafety();
+    }
+//    学习Vector
+    public static void leanVector(){
         /*
         * 通过看API我们可以知道，这个类是一个线程安全的集合类
         * 它的构造函数有四个：
@@ -145,7 +148,38 @@ public class VectorDome {
         System.out.println(vector.elementAt(2));
         System.out.println(vector.firstElement());
         System.out.println(vector.get(2));
+//        System.out.println(Thread.activeCount());
         vector.clear();
         System.out.println(vector.isEmpty());
+    }
+//    测试
+    public static void vectorSafety(){
+        final Vector<Integer> vector = new Vector<Integer>();
+        while (true){
+            for (int i = 0; i < 10; i++) {
+                vector.add(i);
+            }
+
+            Thread removeThread = new Thread(new Runnable() {
+                public void run() {
+                    for (int i = 0; i < 10; i++) {
+                        vector.remove(i);
+                    }
+                }
+            });
+            Thread printThread = new Thread(new Runnable() {
+                public void run() {
+                    for (int i = 0; i < 10; i++) {
+                        System.out.println(vector.get(i));
+                    }
+                }
+            });
+            removeThread.start();
+            printThread.start();
+            while (Thread.activeCount() > 20);
+        }
+        /*
+        * 
+        * */
     }
 }
